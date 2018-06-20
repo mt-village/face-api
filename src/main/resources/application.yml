@@ -1,2 +1,7 @@
+# spring settings
+server:
+  port: 8080
+
+# face-api settings
 face-api:
   key: REPLACE_TO_YOUR_KEY
