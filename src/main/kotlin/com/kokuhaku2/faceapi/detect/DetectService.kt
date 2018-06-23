@@ -3,6 +3,7 @@ package com.kokuhaku2.faceapi.detect
 import com.kokuhaku2.faceapi.*
 import com.kokuhaku2.faceapi.FaceApiService
 import com.kokuhaku2.faceapi.controller.FunScore
+import org.apache.http.util.EntityUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -13,14 +14,19 @@ class DetectService(
         @Autowired val calculator: FunScoreCalculator,
         @Autowired val settings: FaceApiSettings) {
 
-    fun getDetects(url: String): Array<DetectResponse> {
+    fun getDetects(url: String): String {
+        val request = DetectRequestBuilder(settings.key)
+                .buildRequest(url)
+        return apiService.post(request)
+                .let { EntityUtils.toString(it) }
+//                .let { converter.toDetectResponse(it) }
+    }
+
+    fun getFunScore(url: String): FunScore {
         val request = DetectRequestBuilder(settings.key)
                 .buildRequest(url)
         return apiService.post(request)
                 .let { converter.toDetectResponse(it) }
-    }
-
-    fun getFunScore(url: String): FunScore {
-        return getDetects(url).let { calculator.calc(it) }
+                .let { calculator.calc(it) }
     }
 }

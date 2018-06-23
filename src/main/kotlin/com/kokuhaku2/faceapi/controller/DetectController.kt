@@ -2,6 +2,7 @@ package com.kokuhaku2.faceapi.controller
 
 import com.kokuhaku2.faceapi.detect.DetectResponse
 import com.kokuhaku2.faceapi.detect.DetectService
+import com.sun.tools.corba.se.idl.StringGen
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -12,7 +13,7 @@ class DetectController(@Autowired val service: DetectService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun detect(@RequestBody body: Detect): Array<DetectResponse> {
+    fun detect(@RequestBody body: Detect): String {
         return service.getDetects(body.url)
     }
 
