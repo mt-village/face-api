@@ -15,18 +15,19 @@ class DetectService(
         @Autowired val settings: FaceApiSettings) {
 
     fun getDetects(url: String): String {
-        val request = DetectRequestBuilder(settings.key)
-                .buildRequest(url)
-        return apiService.post(request)
+        return DetectRequestBuilder(settings.key).buildRequest(url)
+                .let { apiService.post(it) }
                 .let { EntityUtils.toString(it) }
-//                .let { converter.toDetectResponse(it) }
+    }
+
+    fun getFunScoreSource(url: String): Array<DetectResponse> {
+        return DetectRequestBuilder(settings.key).buildRequest(url)
+                .let { apiService.post(it) }
+                .let { converter.toDetectResponse(it) }
     }
 
     fun getFunScore(url: String): FunScore {
-        val request = DetectRequestBuilder(settings.key)
-                .buildRequest(url)
-        return apiService.post(request)
-                .let { converter.toDetectResponse(it) }
+        return getFunScoreSource(url)
                 .let { calculator.calc(it) }
     }
 }
