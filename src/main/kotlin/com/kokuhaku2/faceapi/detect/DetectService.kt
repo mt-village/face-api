@@ -27,7 +27,8 @@ class DetectService(
     }
 
     fun getFunScore(url: String): FunScore {
+        val image = downloadImgage(url)
         return getFunScoreSource(url)
-                .let { calculator.calc(it) }
+                .let { calculator.calc(image, it) }
     }
 }
