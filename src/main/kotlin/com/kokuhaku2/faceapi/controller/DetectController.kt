@@ -21,9 +21,16 @@ class DetectController(@Autowired val service: DetectService) {
     fun funScore(@RequestBody body: Detect): FunScore {
         return service.getFunScore(body.url)
     }
+
     @PostMapping("funscore/source")
     @ResponseStatus(HttpStatus.CREATED)
     fun funScoreSource(@RequestBody body: Detect): Array<DetectResponse> {
         return service.getFunScoreSource(body.url)
+    }
+
+    @PostMapping("funscore/overlay")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun funScoreOverlay(@RequestBody body: Detect): Overlay {
+        return Overlay(url = body.url)
     }
 }

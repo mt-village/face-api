@@ -12,3 +12,5 @@ data class FunScore(
         val smileAverage: Double,
         val genderRatio: FunScoreCalculator.GenderRatio
 )
+
+data class Overlay(val url: String)
