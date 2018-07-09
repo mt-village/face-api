@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class RankingService(@Autowired val repository: ScoringImangeRepository) {
+class RankingService(@Autowired val repository: ScoringImageRepository) {
 
     fun save(overlay: Overlay) {
         val url = overlay.url ?: throw IllegalStateException()
-        repository.save(ScoringImage(url, overlay.score.totalScore))
+        repository.save(ScoringImage(null, url, overlay.score.totalScore))
     }
 
     fun clear() {
@@ -21,12 +21,14 @@ class RankingService(@Autowired val repository: ScoringImangeRepository) {
         if (images.isEmpty()) {
             // サンプルを返す
             return ScoringImage(
+                    id = null,
                     url = "http://res.cloudinary.com/kogecoo/image/upload/v1530611426/h0vrdpdnondnd6pmlj1y.png",
                     score = 0
-
             )
         }
         return repository.findAll()
-                .sortedByDescending { it.score }[n-1]
+                .sortedByDescending { it.score }
+                // 点数が同じ場合は先に登録された方を優先する
+                .sortedBy { it.id }[n-1]
     }
 }
