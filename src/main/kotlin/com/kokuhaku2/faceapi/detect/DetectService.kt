@@ -5,6 +5,8 @@ import com.kokuhaku2.faceapi.FaceApiService
 import com.kokuhaku2.faceapi.cloudinary.CloudinaryService
 import com.kokuhaku2.faceapi.controller.FunScore
 import com.kokuhaku2.faceapi.controller.Overlay
+import com.kokuhaku2.faceapi.ranking.RankingService
+import com.kokuhaku2.faceapi.ranking.ScoringImage
 import org.apache.http.util.EntityUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -15,6 +17,7 @@ class DetectService(
         @Autowired val converter: Converter,
         @Autowired val calculator: FunScoreCalculator,
         @Autowired val cloudinaryService: CloudinaryService,
+        @Autowired val rankingService: RankingService,
         @Autowired val settings: FaceApiSettings) {
 
     fun getDetects(url: String): String {
@@ -37,6 +40,19 @@ class DetectService(
 
     fun createOverlayImage(url: String): Overlay {
         val funScore = getFunScore(url)
-        return cloudinaryService.overlayScore(url, funScore)
+        val overlay = cloudinaryService.overlayScore(url, funScore)
+        if (overlay.detected) {
+            rankingService.save(overlay)
+        }
+        return overlay
     }
+
+    fun getRanked(n: Int): ScoringImage {
+        return rankingService.getRanked(n)
+    }
+
+    fun clearRanking() {
+        return rankingService.clear()
+    }
+
 }
