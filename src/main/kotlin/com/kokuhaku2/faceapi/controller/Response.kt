@@ -11,6 +11,10 @@ data class FunScore(
         val faceAreaRatio: Double,
         val smileAverage: Double,
         val genderRatio: FunScoreCalculator.GenderRatio
-)
+) {
+    fun detected() = totalScore > 0
+}
 
-data class Overlay(val url: String)
+
+
+data class Overlay(val detected: Boolean, val url: String?, val score: FunScore)

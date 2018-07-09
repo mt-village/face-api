@@ -31,6 +31,6 @@ class DetectController(@Autowired val service: DetectService) {
     @PostMapping("funscore/overlay")
     @ResponseStatus(HttpStatus.CREATED)
     fun funScoreOverlay(@RequestBody body: Detect): Overlay {
-        return Overlay(url = body.url)
+        return service.createOverlayImage(body.url)
     }
 }

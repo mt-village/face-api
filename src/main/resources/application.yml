@@ -4,4 +4,12 @@ server:
 
 # face-api settings
 face-api:
-  key: REPLACE_TO_YOUR_KEY
+  key: REPLACE_TO_YOURS
+
+# cloudinaly settings
+cloudinaly:
+  cloudName: REPLACE_TO_YOURS
+  apiKey: REPLACE_TO_YOURS
+  apiSecret: REPLACE_TO_YOURS
+  meterPixelSize: 150
+
