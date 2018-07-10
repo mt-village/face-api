@@ -29,8 +29,11 @@ class CloudinaryService(
         if (!score.detected()) {
             return Overlay(detected = false, url = null, score = score)
         }
-        val imageTag = url.replace("http://res.cloudinary.com/kogecoo/image/upload/", "remote_media/")
-        val res = cloudinary.url().transformation(createTransformation()
+        var imageTag = url
+                .replace("https://res.cloudinary.com/kogecoo/image/upload/", "remote_media/")
+                .replace("http://res.cloudinary.com/kogecoo/image/upload/", "remote_media/")
+        val res = cloudinary.url()
+                .transformation(createTransformation()
                 .width(640)
                 .crop("scale")
                 .chain()
@@ -44,6 +47,7 @@ class CloudinaryService(
                 .crop("scale")
                 .gravity("south_east")
         ).imageTag(imageTag)
+        println(res)
         return Overlay(detected = true, url = extraUrl(res), score = score)
     }
 

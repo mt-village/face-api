@@ -8,13 +8,13 @@ import javax.persistence.*
 data class ScoringImage (
 
         @Id
-        @GeneratedValue
-        val id: Int?,
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        val id: Int? = null,
 
         @Column(nullable = false)
-        val url: String,
+        val url: String = "",
 
         @Column(nullable = false)
-        val score: Int
+        val score: Int = 0
 
 ): Serializable

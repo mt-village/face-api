@@ -21,7 +21,7 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
         if (images.isEmpty()) {
             // サンプルを返す
             return ScoringImage(
-                    id = null,
+                    id = -1,
                     url = "http://res.cloudinary.com/kogecoo/image/upload/v1530611426/h0vrdpdnondnd6pmlj1y.png",
                     score = 0
             )
