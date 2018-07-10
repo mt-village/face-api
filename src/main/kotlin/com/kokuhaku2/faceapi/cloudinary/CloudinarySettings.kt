@@ -9,5 +9,7 @@ class CloudinarySettings {
     lateinit var cloudName: String
     lateinit var apiKey: String
     lateinit var apiSecret: String
+    lateinit var overlayImagePixelLimit: String
     lateinit var meterPixelSize: String
+    lateinit var previewMeterPixelSize: String
 }

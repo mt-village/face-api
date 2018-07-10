@@ -11,7 +11,9 @@ cloudinaly:
   cloudName: REPLACE_TO_YOURS
   apiKey: REPLACE_TO_YOURS
   apiSecret: REPLACE_TO_YOURS
+  overlayImagePixelLimit: 640
   meterPixelSize: 150
+  previewMeterPixelSize: 60
 # DB
 spring.h2.console.enabled: true
 spring.h2.console.path: /h2_console
