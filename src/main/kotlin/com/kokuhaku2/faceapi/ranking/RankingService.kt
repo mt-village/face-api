@@ -9,7 +9,8 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
 
     fun save(overlay: Overlay) {
         val url = overlay.url ?: throw IllegalStateException()
-        repository.save(ScoringImage(null, url, overlay.score.totalScore))
+        val previewUrl = overlay.previewUrl ?: throw IllegalStateException()
+        repository.save(ScoringImage(null, url, previewUrl, overlay.score.totalScore))
     }
 
     fun clear() {

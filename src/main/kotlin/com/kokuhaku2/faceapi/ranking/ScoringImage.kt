@@ -14,6 +14,9 @@ data class ScoringImage (
         @Column(nullable = false)
         val url: String = "",
 
+        @Column(name = "preview_url", nullable = false)
+        val previewUrl: String = "",
+
         @Column(nullable = false)
         val score: Int = 0
 

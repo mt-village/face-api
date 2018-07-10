@@ -27,28 +27,56 @@ class CloudinaryService(
      */
     fun overlayScore(url: String, score: FunScore): Overlay {
         if (!score.detected()) {
-            return Overlay(detected = false, url = null, score = score)
+            return Overlay(detected = false, url = null, previewUrl = null, score = score)
         }
         var imageTag = url
                 .replace("https://res.cloudinary.com/kogecoo/image/upload/", "remote_media/")
                 .replace("http://res.cloudinary.com/kogecoo/image/upload/", "remote_media/")
+        val url = creteOverlayImage(imageTag, score.totalScore)
+        val previewUrl = creteOverlayPreviewImage(imageTag, score.totalScore)
+        return Overlay(detected = true, url = url, previewUrl = previewUrl, score = score)
+    }
+
+    fun creteOverlayImage(imageTag: String, score: Int): String {
         val res = cloudinary.url()
                 .transformation(createTransformation()
-                .width(640)
-                .crop("scale")
-                .chain()
-                .overlay(getMeterImageName(score.totalScore))
-                .width(settings.meterPixelSize)
-                .crop("scale")
-                .gravity("south_east")
-                .chain()
-                .overlay(getScoreImageName(score.totalScore))
-                .width(settings.meterPixelSize)
-                .crop("scale")
-                .gravity("south_east")
-        ).imageTag(imageTag)
+                        .width(640)
+                        .height(640)
+                        .crop("limit")
+                        .chain()
+                        .overlay(getMeterImageName(score))
+                        .width(settings.meterPixelSize)
+                        .crop("scale")
+                        .gravity("south_east")
+                        .chain()
+                        .overlay(getScoreImageName(score))
+                        .width(settings.meterPixelSize)
+                        .crop("scale")
+                        .gravity("south_east")
+                ).imageTag(imageTag)
         println(res)
-        return Overlay(detected = true, url = extraUrl(res), score = score)
+        return extraUrl(res)
+    }
+
+    fun creteOverlayPreviewImage(imageTag: String, score: Int): String {
+        val res = cloudinary.url()
+                .transformation(createTransformation()
+                        .width(240)
+                        .height(240)
+                        .crop("limit")
+                        .chain()
+                        .overlay(getMeterImageName(score))
+                        .width(60)
+                        .crop("scale")
+                        .gravity("south_east")
+                        .chain()
+                        .overlay(getScoreImageName(score))
+                        .width(60)
+                        .crop("scale")
+                        .gravity("south_east")
+                ).imageTag(imageTag)
+        println(res)
+        return extraUrl(res)
     }
 
     fun createTransformation(): Transformation<Transformation<*>> {

@@ -17,4 +17,4 @@ data class FunScore(
 
 
 
-data class Overlay(val detected: Boolean, val url: String?, val score: FunScore)
+data class Overlay(val detected: Boolean, val url: String?, val previewUrl: String?, val score: FunScore)

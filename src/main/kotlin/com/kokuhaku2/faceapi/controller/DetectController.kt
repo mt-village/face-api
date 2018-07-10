@@ -43,7 +43,7 @@ class DetectController(@Autowired val service: DetectService) {
 
     @DeleteMapping("funscore/ranking")
     @ResponseStatus(HttpStatus.OK)
-    fun DeleteFunScoreRaning() {
+    fun deleteFunScoreRanking() {
         service.clearRanking()
     }
 }
