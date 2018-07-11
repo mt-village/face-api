@@ -32,13 +32,17 @@ class DetectController(@Autowired val service: DetectService) {
     @PostMapping("funscore/overlay")
     @ResponseStatus(HttpStatus.CREATED)
     fun funScoreOverlay(@RequestBody body: Detect): Overlay {
-        return service.createOverlayImage(body.url)
+        val overlay = service.createOverlayImage(body.url)
+        println(overlay)
+        return overlay
     }
 
     @GetMapping("funscore/ranking")
     @ResponseStatus(HttpStatus.OK)
     fun getFunScoreRanking(@RequestParam n: Int): ScoringImage {
-        return service.getRanked(n)
+        val scoringImage = service.getRanked(n)
+        println(scoringImage)
+        return scoringImage
     }
 
     @DeleteMapping("funscore/ranking")

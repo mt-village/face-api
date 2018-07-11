@@ -19,7 +19,7 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
 
     fun getRanked(n: Int): ScoringImage {
         val images = repository.findAll()
-        if (images.isEmpty()) {
+        if (images.size <= n-1) {
             // サンプルを返す
             return ScoringImage(
                     id = -1,
@@ -28,8 +28,10 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
             )
         }
         return repository.findAll()
-                .sortedByDescending { it.score }
-                // 点数が同じ場合は先に登録された方を優先する
-                .sortedBy { it.id }[n-1]
+                .sortedWith(
+                        compareByDescending<ScoringImage>{it.score}
+                        // 点数が同じ場合は先に登録された方を優先する
+                        .thenBy { it.id }
+                )[n-1]
     }
 }
