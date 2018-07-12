@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar target/face-api.jar --server.port=$PORT --app.profiles.active=heroku
