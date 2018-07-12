@@ -17,14 +17,14 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
         repository.deleteAll()
     }
 
-    fun getRanked(n: Int): ScoringImage {
+    fun getRanked(n: Int): List<ScoringImage> {
         val images = repository.findAll()
         if (images.size <= n-1) {
             // サンプルを返す
-            return ScoringImage(
+            return listOf(ScoringImage(
                     id = -1,
                     url = "http://res.cloudinary.com/kogecoo/image/upload/v1530611426/h0vrdpdnondnd6pmlj1y.png",
-                    score = 0
+                    score = 0)
             )
         }
         return repository.findAll()
@@ -32,6 +32,6 @@ class RankingService(@Autowired val repository: ScoringImageRepository) {
                         compareByDescending<ScoringImage>{it.score}
                         // 点数が同じ場合は先に登録された方を優先する
                         .thenBy { it.id }
-                )[n-1]
+                ).subList(0, n)
     }
 }

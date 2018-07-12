@@ -47,7 +47,7 @@ class DetectService(
         return overlay
     }
 
-    fun getRanked(n: Int): ScoringImage {
+    fun getRanked(n: Int): List<ScoringImage> {
         return rankingService.getRanked(n)
     }
 

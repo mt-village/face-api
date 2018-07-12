@@ -39,10 +39,10 @@ class DetectController(@Autowired val service: DetectService) {
 
     @GetMapping("funscore/ranking")
     @ResponseStatus(HttpStatus.OK)
-    fun getFunScoreRanking(@RequestParam n: Int): ScoringImage {
-        val scoringImage = service.getRanked(n)
-        println(scoringImage)
-        return scoringImage
+    fun getFunScoreRanking(@RequestParam n: Int): List<ScoringImage> {
+        val scoringImages = service.getRanked(n)
+        println(scoringImages)
+        return scoringImages
     }
 
     @DeleteMapping("funscore/ranking")
