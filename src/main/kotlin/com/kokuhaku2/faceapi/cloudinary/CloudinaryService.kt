@@ -87,17 +87,18 @@ class CloudinaryService(
 
     fun getMeterImageName(score: Int): String {
         return when(score) {
-            in 0..10 -> meterPrefix + "10"
-            in 11..20 -> meterPrefix + "20"
-            in 21..30 -> meterPrefix + "30"
-            in 31..40 -> meterPrefix + "40"
-            in 41..50 -> meterPrefix + "50"
-            in 51..60 -> meterPrefix + "60"
-            in 61..70 -> meterPrefix + "70"
-            in 71..80 -> meterPrefix + "80"
-            in 81..90 -> meterPrefix + "90"
-            in 91..100 -> meterPrefix + "100"
-            else -> meterPrefix + "10"
+            in 0..10 -> meterPrefix + "0"
+            in 11..20 -> meterPrefix + "10"
+            in 21..30 -> meterPrefix + "20"
+            in 31..40 -> meterPrefix + "30"
+            in 41..50 -> meterPrefix + "40"
+            in 51..60 -> meterPrefix + "50"
+            in 61..70 -> meterPrefix + "60"
+            in 71..80 -> meterPrefix + "70"
+            in 81..90 -> meterPrefix + "80"
+            in 91..99 -> meterPrefix + "90"
+            100 -> meterPrefix + "100"
+            else -> meterPrefix + "0"
         }
     }
 
