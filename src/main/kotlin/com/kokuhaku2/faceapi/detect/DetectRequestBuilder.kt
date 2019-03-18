@@ -7,7 +7,7 @@ import java.net.URI
 
 class DetectRequestBuilder(private val subscriptionKey: String) {
 
-    private val uriBase = "https://eastasia.api.cognitive.microsoft.com/face/v1.0/detect"
+    private val uriBase = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect"
 
     private val faceAttributes = arrayOf(
             "age",
